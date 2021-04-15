@@ -65,6 +65,7 @@ int main(int argc,char **argv)
         exit(1);
     }
 
+//这里需要注意数字的乘法过程就可以出现整数溢出，所以让每个数都是长整型，则可以避免溢出，因为默认的是短整型
     long err = lseek(fd,5LL*1024LL*1024LL*1024LL-1LL,SEEK_SET);
     if (err == -1) {
         perror("lseek");
@@ -128,6 +129,8 @@ drwxrwxrwt   1 root root 3.6K 2月   8 17:58 tmp
 ### 文件系统的实质
 **FAT UFS**
 文件系统： 文件或数据的存储和管理
+FAT：静态单向链表组织形式
+UFS：多级指针数组组织形式，存放小文件容易耗尽inode结点
 
 ### 硬链接 符号连接
 - link (命令) 创建`硬链接` 其实就是在`目录项`中添加一条映射
