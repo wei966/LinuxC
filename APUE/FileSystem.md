@@ -157,6 +157,7 @@ UFS：多级指针数组组织形式，存放小文件容易耗尽inode结点
 //glob解析路径
 static void Glob(){
     glob_t globres;
+    //PAT 是需要匹配的路径
     int err = glob(PAT,0,&errfunc,&globres);
     if (err) {
         printf("Error code = %d\n",err);
@@ -165,6 +166,8 @@ static void Glob(){
     for (int i = 0;globres.gl_pathv[i]!= NULL;i++) {
         fprintf(stdout,"%s\n",globres.gl_pathv[i]);
     }
+    
+    globfree(&globres);	//释放内存
 }
 
 ~~~
@@ -179,7 +182,7 @@ static void Glob(){
 ~~~ c
 //组合解析路径
 static void PathParse(char *Path) {
-    DIR *dp;
+    DIR *dp;	// 效果类似于FILE*的形式
     struct dirent *cur;
 
     dp = opendir(Path);
