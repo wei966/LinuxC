@@ -21,7 +21,7 @@
 
 int main()
 {
-    printf("%d start !\n",getpid());
+    printf("%d start !\n",getpid()); //这里的换行对标准输出有效果，因为它是行缓冲；对其它文件不起效果，因为它们是全缓冲
     fflush(NULL);//记得刷新 否则begin放到缓冲区 父子进程的缓冲区里各有一句begin
 
     pid_t pid = fork();
